@@ -1,0 +1,192 @@
+.locationbasedsection-NavBar {
+  background-color: #D01F1F;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.location-links {
+  display: flex;
+  gap: 20px;
+}
+
+.locationbasedsection-NavBar-link {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.locationbasedsection-NavBar-link:hover,
+.locationbasedsection-NavBar-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+input {
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  width: 200px;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.locationbasedsection-news-container {
+  background-color: #f5f5f5;
+  min-height: 50vh;
+  padding: 20px;
+}
+
+.locationbasedsection-container .cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding: 0.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.locationbasedsection-container .card {
+  background: white;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  position: relative;
+  max-width: 270px;
+  margin: 0 auto;
+}
+
+.locationbasedsection-container .card:hover {
+  transform: translateY(-1px);
+}
+
+.locationbasedsection-container .badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #d32f2f;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.locationbasedsection-container .card-image {
+  width: 100%;
+  object-fit: cover;
+}
+
+.locationbasedsection-container .card-content {
+  padding: 0.5rem;
+}
+
+.locationbasedsection-container .card-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.8rem;
+  color: #333;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-weight: 600;
+}
+
+.locationbasedsection-container .card-description {
+  color: #666;
+  margin-bottom: 0.5rem;
+  font-size: 0.65rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.locationbasedsection-container .card-footer {
+  border-top: 1px solid #eee;
+  padding-top: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+.locationbasedsection-container .author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.locationbasedsection-container .author {
+  color: #666;
+  font-size: 0.6rem;
+}
+
+.locationbasedsection-container .date {
+  color: #888;
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.locationbasedsection-container .calendar-icon {
+  font-size: 0.65rem;
+}
+
+.locationbasedsection-container .card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.25rem;
+}
+
+.locationbasedsection-container .share-icon {
+  font-size: 0.75rem;
+  color: #666;
+  cursor: pointer;
+}
+
+.locationbasedsection-container .share-icon:hover {
+  color: #333;
+}
+
+.locationbasedsection-container .read-more {
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 0.6rem;
+}
+
+.locationbasedsection-container .read-more:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .locationbasedsection-container .cards-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .locationbasedsection-container .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .locationbasedsection-container .cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .locationbasedsection-container .card {
+    max-width: 100%;
+  }
+}

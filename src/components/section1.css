@@ -1,0 +1,28 @@
+.section1{
+}
+
+.section1-left{
+    width: 1200px;
+}
+
+.section1-left-top{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0vw 10vw;
+}
+
+.section1-left-top-top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.section1-left-top-bottom{
+    display: flex;
+    justify-content: space-between;
+}
+
+.section1-left-bottom{
+    margin: 0vw 10vw;
+
+}

@@ -28,6 +28,18 @@
   color: #61dafb;
 }
 
+.banner-userpts {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+.left-panel {
+  height: 100%;
+}
+.right-panel {
+  flex: 1;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
