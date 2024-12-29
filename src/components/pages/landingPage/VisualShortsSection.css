@@ -38,12 +38,11 @@
 
 .visual-shorts-section {
   padding: 1rem 0rem;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 0vw 10vw;
 }
 
 .section-header {

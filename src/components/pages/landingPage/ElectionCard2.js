@@ -15,7 +15,7 @@ const ElectionCard2 = () => {
       const fetchNews = async () => {
         try {
           const response = await fetch(
-            "http://localhost:8080/api/news"
+            "https://news-backend-production-ae21.up.railway.app/api/news"
           );
           if (!response.ok) {
             throw new Error("Failed to fetch news.");

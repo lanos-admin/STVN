@@ -23,7 +23,14 @@ const Section1 = () => {
 
             </div>
         </div>
-        <div className='section1-right'></div>
+        <div className='section1-right'>
+          <div className='advertisement-section'>
+            <h2>Advertisements</h2>
+            <div className='ad-space'>
+              {/* Ad content will go here */}
+            </div>
+          </div>
+        </div>
     </div>
   )
 }
