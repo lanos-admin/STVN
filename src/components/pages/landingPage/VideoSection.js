@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './VisualShortsSection.css';
 import { BsPlayCircle } from 'react-icons/bs';
-import CardImg from "../assets/News1 6.png";
+import CardImg from "../../../assets/News1 6.png";
 
 const visualShortsData = [
   {
@@ -55,20 +55,18 @@ const visualShortsData = [
 ];
 
 const VisualShortsSection = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
   return (
     <div className="visual-shorts-section">
+              <h2 className='visual-shorts-title'>Viral Videos</h2>
+              <div className="gradient-underline"></div>
       <div className="section-header">
-        <h2>विजुअल शॉर्ट्स</h2>
-        <span className="view-all">सभी देखें →</span>
+
       </div>
       <div className="shorts-container">
-        {visualShortsData.map((short, index) => (
+        {visualShortsData.slice(0, 4).map((short, index) => (
           <div 
             key={short.id} 
             className="short-card"
-            onMouseEnter={() => setActiveIndex(index)}
           >
             <div className="thumbnail-container">
               <img src={short.thumbnail} alt={short.title} />

@@ -1,16 +1,15 @@
-.news-card {
-    background-image: url("../assets/ipl-2025-mega-auction\ 1.png");
+.head-news-card {
+    background-image: url("../../../assets/ipl-2025-mega-auction\ 1.png");
     background-size: cover;
     background-position: center;
     color: white;
-    border-radius: 8px;
+    border-radius: 5px;
     position: relative;
     min-height: 330px;
-    width: 75vw;
     overflow: hidden;
 }
 
-.news-card-overlay {
+.head-news-card-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -20,7 +19,7 @@
     z-index: 1;
 }
 
-.news-content {
+.head-news-content {
     position: relative;
     z-index: 2;
     padding: 20px;
@@ -33,25 +32,25 @@
     margin-left: 30px;
 }
 
-.news-content-wrapper {
+.head-news-content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.news-content-wrapper h2 {
+.head-news-content-wrapper h2 {
     font-size: 2.5rem;
     margin-bottom: 15px;
 }
 
-.news-content-wrapper ul {
+.head-news-content-wrapper ul {
     list-style: none;
     padding-left: 0;
     margin: 0;
     padding: 0;
 }
 
-.news-content-wrapper ul li {
+.head-news-content-wrapper ul li {
     color: white;
     font-size: 1rem;
     margin-bottom: 10px;
@@ -60,7 +59,7 @@
     padding-left: 25px;
 }
 
-.news-content-wrapper ul li::before {
+.head-news-content-wrapper ul li::before {
     content: '•';
     color: white;
     position: absolute;
@@ -69,11 +68,11 @@
     line-height: 1;
 }
 
-.news-content h2 {
+.head-news-content h2 {
     font-size: 2.5rem;
 }
 
-.NewsCard-list {
+.head-newsCard-list {
     list-style: none;
     padding: 0;
     margin-bottom: 10px;
@@ -81,16 +80,17 @@
     flex-direction: column;
 }
 
-.news-content ul li {
+.head-news-content ul li {
     font-size: 1rem;
 }
 
-.read-more {
+.head-read-more {
     color: white;
     text-decoration: none;
     font-weight: bold;
     align-self: flex-end;
     margin-top: auto;
+    margin-right: 100px;
     padding: 10px 20px;
     background-color: transparent;
     border-radius: 5px;
@@ -114,4 +114,19 @@
 
 .left-panel {
     height: 100%;
+}
+
+
+a.Head-read-more{
+    color: white;
+    margin-right: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+}
+
+.head-read-more-section{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end
 }

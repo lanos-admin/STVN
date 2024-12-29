@@ -1,26 +1,28 @@
 import React from "react";
-import "./NewsCard.css";
+import "./HeadNewsCard.css";
 
-const NewsCard = () => {
+const HeadNewsCard = () => {
   return (
-    <div className="news-card">
-      <div className="news-card-overlay"></div>
-      <div className="news-content">
-        <div className="news-content-wrapper">
+    <div className="head-news-card">
+      <div className="head-news-card-overlay"></div>
+      <div className="head-news-content">
+        <div className="head-news-content-wrapper">
 
           <h2>नीलामी में किया हाथ साफ, पूरे बिक गए खिलाड़ी</h2>
-          <ul className="NewsCard-list">
+          <ul className="head-newsCard-list">
             <li>ऋषभ पंत 27 करोड़ में बिके</li>
             <li>पृथ्वी शॉ को किसी ने नहीं चुना</li>
           </ul>
         </div>
-        <a href="#" className="read-more">
+        <div className="head-read-more-section">
+        <a href="#" className="Head-read-more">
           आगे पढ़े
           <div className="read-more-arrow"></div>
         </a>
+        </div>
       </div>
     </div>
   );
 };
 
-export default NewsCard;
+export default HeadNewsCard;

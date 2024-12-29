@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from "react";
 import "./ElectionCard2.css";
-import CardImg2 from "../assets/News1 17.png";
+import CardImg2 from "../../../assets/News1 17.png";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { BsCalendar3 } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const ElectionCard2 = () => {
+    const navigate = useNavigate();
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -13,7 +15,7 @@ const ElectionCard2 = () => {
       const fetchNews = async () => {
         try {
           const response = await fetch(
-            "https://news-backend-production-ae21.up.railway.app/api/news"
+            "http://localhost:8080/api/news"
           );
           if (!response.ok) {
             throw new Error("Failed to fetch news.");
@@ -58,8 +60,38 @@ const ElectionCard2 = () => {
           </div>
         </div>
         <div className="card-actions2">
-          <IoShareSocialOutline className="share-icon2" />
-          <a href="#" className="read-more2">
+          <IoShareSocialOutline 
+            className="share-icon2" 
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({
+                  title: article.heading,
+                  text: article.mainNews,
+                  url: window.location.href,
+                })
+                .catch((error) => console.log('Error sharing:', error));
+              } else {
+                // Fallback for browsers that don't support Web Share API
+                const shareUrl = `${window.location.href}?article=${encodeURIComponent(article.heading)}&category=election2`;
+                navigator.clipboard.writeText(shareUrl)
+                  .then(() => alert('Link copied to clipboard!'))
+                  .catch((error) => console.log('Error copying to clipboard:', error));
+              }
+            }}
+          />
+          <a 
+            href="#" 
+            className="read-more2"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/news-detail/${article._id}`, { 
+                state: { 
+                  article: article,
+                  category: 'election2'
+                }
+              });
+            }}
+          >
             और भी →
           </a>
         </div>

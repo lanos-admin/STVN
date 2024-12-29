@@ -1,10 +1,11 @@
 .visual-shorts-container {
     background-color: #7d1515;
     padding: 20px;
+    max-width: 600px;
   }
   
   .visual-shorts-title {
-    color: #fff;
+    color: red;
     margin-bottom: 20px;
   }
   
@@ -36,9 +37,13 @@
   }
 
 .visual-shorts-section {
-  padding: 1rem;
+  padding: 1rem 0rem;
   max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0vw 10vw;
 }
 
 .section-header {
@@ -63,15 +68,16 @@
 
 .shorts-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
   padding: 0.5rem;
+  width: 900px;
 }
 
 .short-card {
   background: white;
   border-radius: 8px;
   overflow: hidden;
+  max-width: 440px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
   cursor: pointer;

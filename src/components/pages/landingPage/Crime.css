@@ -1,4 +1,13 @@
-.card2 {
+.CrimeContainer {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.CrimeCard {
     width: 267px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -6,9 +15,10 @@
     font-family: 'Arial', sans-serif;
     position: relative;
     background-color: #fff;
-  }
+    flex: 1;
+}
   
-  .badge2 {
+.CrimeBadge {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -17,83 +27,111 @@
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 14px;
-  }
+}
   
-  .card-image2 {
+.CrimeCardImage {
     width: 100%;
     height: auto;
-  }
+}
   
-  .card-content2 {
+.CrimeCardContent {
     padding: 16px;
-  }
+}
   
-  .card-title2 {
+.CrimeCardTitle {
     font-size: 18px;
     color: #333;
     margin: 0 0 8px;
-  }
+}
   
-  .card-description2 {
+.CrimeCardDescription {
     font-size: 14px;
     color: #555;
     margin: 0 0 16px;
-  }
+}
   
-  .card-footer2 {
+.CrimeCardFooter {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
     color: #888;
-  }
+}
   
-  .read-more2 {
+.CrimeReadMore {
     text-decoration: none;
     color: #d32f2f;
     font-weight: bold;
     font-size: 14px;
-  }
+}
 
-  .card-actions2 {
+.CrimeCardActions {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-top: 10px;
     justify-content: flex-end;
-  }
+}
 
-  .share-icon2 {
+.CrimeShareIcon {
     font-size: 20px;
     color: #666;
     cursor: pointer;
     transition: color 0.3s ease;
-  }
+}
 
-  .share-icon2:hover {
+.CrimeShareIcon:hover {
     color: #333;
-  }
+}
 
-  .author-info2 {
+.CrimeAuthorInfo {
     display: flex;
     flex-direction: column;
     gap: 4px;
-  }
+}
 
-  .author2 {
+.CrimeAuthor {
     font-weight: 500;
     color: #333;
-  }
+}
 
-  .date2 {
+.CrimeDate {
     display: flex;
     align-items: center;
     gap: 4px;
     color: #666;
     font-size: 0.9em;
-  }
+}
 
-  .calendar-icon2 {
+.CrimeCalendarIcon {
     font-size: 14px;
     color: #666;
-  }
+}
 
+.Crime-title-section{
+    font-size: large;
+    color: #D01F1F;
+    width: 1200px;
+    margin-bottom: 20px;
+}
+
+.CrimeSection-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.gradient-underline {
+    height: 6px;
+    background: linear-gradient(to right, #D01F1F 0%, #ffffff00 100%);
+    margin-top: 5px;
+    margin-bottom: 20px;
+    width: 100px;
+    border-radius: 2px;
+}
+
+.Crime{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

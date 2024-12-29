@@ -41,7 +41,6 @@
     width: 400px; /* Adjust the width as needed */
     background: linear-gradient(to right, #b71c1c, transparent); /* Red to transparent gradient */
     border: none;
-    margin-top: 2px;
     margin-bottom: 5px /* Optional: Add spacing */
   }
   

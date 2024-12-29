@@ -1,0 +1,113 @@
+/* Footer Container */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: black;
+    color: white;
+    padding: 20px 40px;
+    flex-wrap: wrap;
+    
+  }
+  
+  /* Footer Logo */
+  .footer-logo {
+    flex: 1;
+  }
+  
+  .footer-logo h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  /* Footer Columns */
+  .footer-columns {
+    display: flex;
+    flex: 2;
+    gap: 6rem;
+    cursor: pointer;
+    
+    
+  }
+  
+  .footer-column {
+    margin-right: 20px;
+
+  }
+ 
+  .footer-column h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 8px;
+  }
+  li:hover{
+    color: red;
+  }
+  
+  /* Footer Right Section */
+  .footer-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  /* Search */
+  .footer-search {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .footer-search-input {
+    padding: 5px;
+    border: none;
+    outline: none;
+    background-color:#848484;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    height: 2rem;
+    width: 20rem;
+  }
+  
+  .footer-search-button {
+    height: 2.6rem;
+    width: 3rem;
+    border: none;
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .footer-social {
+    display: flex;
+    align-items: center;
+    
+    gap: 10px;
+  }
+  
+  .footer-social p {
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  
+  .footer-social i {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .footer-social i:hover {
+    color: gray;
+  }
+  

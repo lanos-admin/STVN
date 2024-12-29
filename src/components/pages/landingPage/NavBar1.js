@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaBell, FaMicrophone, FaCircle, FaCoins, FaUserCircle } from 'react-icons/fa';
-import stvnLogo from '../assets/STVN logo 1.png';
+import stvnLogo from '../../../assets/STVN logo 1.png';
 
 const NavBar1 = () => {
   return (

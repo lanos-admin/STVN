@@ -1,14 +1,24 @@
-.card {
-    width: 400px;
+.InternationalContainer {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.InternationalCard {
+    width: 267px;
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
     position: relative;
     background-color: #fff;
-  }
+    flex: 1;
+}
   
-  .badge {
+.InternationalBadge {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -17,82 +27,111 @@
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 14px;
-  }
+}
   
-  .card-image {
+.InternationalCardImage {
     width: 100%;
     height: auto;
-  }
+}
   
-  .card-content {
+.InternationalCardContent {
     padding: 16px;
-  }
+}
   
-  .card-title {
+.InternationalCardTitle {
     font-size: 18px;
     color: #333;
     margin: 0 0 8px;
-  }
+}
   
-  .card-description {
+.InternationalCardDescription {
     font-size: 14px;
     color: #555;
     margin: 0 0 16px;
-  }
+}
   
-  .card-footer {
+.InternationalCardFooter {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
     color: #888;
-  }
+}
   
-  .read-more {
+.InternationalReadMore {
     text-decoration: none;
     color: #d32f2f;
     font-weight: bold;
     font-size: 14px;
-  }
+}
 
-  .card-actions {
+.InternationalCardActions {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-top: 10px;
     justify-content: flex-end;
-  }
+}
 
-  .share-icon {
+.InternationalShareIcon {
     font-size: 20px;
     color: #666;
     cursor: pointer;
     transition: color 0.3s ease;
-  }
+}
 
-  .share-icon:hover {
+.InternationalShareIcon:hover {
     color: #333;
-  }
+}
 
-  .author-info {
+.InternationalAuthorInfo {
     display: flex;
     flex-direction: column;
     gap: 4px;
-  }
+}
 
-  .author {
+.InternationalAuthor {
     font-weight: 500;
     color: #333;
-  }
+}
 
-  .date {
+.InternationalDate {
     display: flex;
     align-items: center;
     gap: 4px;
     color: #666;
     font-size: 0.9em;
-  }
+}
 
-  .calendar-icon {
+.InternationalCalendarIcon {
     font-size: 14px;
     color: #666;
-  }
+}
+
+.International-title-section{
+    font-size: large;
+    color: #D01F1F;
+    width: 1200px;
+    margin-bottom: 20px;
+}
+
+.InternationalSection-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.gradient-underline {
+    height: 6px;
+    background: linear-gradient(to right, #D01F1F 0%, #ffffff00 100%);
+    margin-top: 5px;
+    margin-bottom: 20px;
+    width: 100px;
+    border-radius: 2px;
+}
+
+.International{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

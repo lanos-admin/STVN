@@ -164,6 +164,11 @@ input:focus {
   font-size: 0.6rem;
 }
 
+.locationbasedsection-title{
+  font-size: large;
+  color: #D01F1F;
+}
+
 .locationbasedsection-container .read-more:hover {
   text-decoration: underline;
 }

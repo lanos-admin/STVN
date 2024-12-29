@@ -1,11 +1,11 @@
 import React from "react";
-import DistrictWiseNewsHeader from "./DistrictWiseNewsHeader";
-import DistrictWiseNewsGrid from "./DistrictWiseNewsGrid";
 import "./Section2.css";
+import Politics from "./Politics";
 
 function Section2() {
   return (
     <div className="Section2">
+      <Politics/>
     </div>
   );
 }
