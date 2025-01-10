@@ -30,6 +30,12 @@ const Section1 = () => {
               {/* Ad content will go here */}
             </div>
           </div>
+          <div className='advertisement-section second-ad'>
+            <h2>Advertisements</h2>
+            <div className='ad-space'>
+              {/* Second ad content will go here */}
+            </div>
+          </div>
         </div>
     </div>
   )

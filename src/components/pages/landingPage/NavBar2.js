@@ -27,8 +27,8 @@ const NavBar2 = () => {
             <li><Link to="/अपराध" className="nav-bar-2-link" onClick={toggleMenu}>अपराध</Link></li>
             <li><Link to="/खेल" className="nav-bar-2-link" onClick={toggleMenu}>खेल</Link></li>
             <li><Link to="/मनोरंजन" className="nav-bar-2-link" onClick={toggleMenu}>मनोरंजन</Link></li>
-            <li><Link to="/व्यापार" className="nav-bar-2-link" onClick={toggleMenu}>व्यापार</Link></li>
-            <li><Link to="/मौसम" className="nav-bar-2-link" onClick={toggleMenu}>मौसम</Link></li>
+            <li><Link to="/राष्ट्रीय" className="nav-bar-2-link" onClick={toggleMenu}>राष्ट्रीय</Link></li>
+            <li><Link to="/अंतरराष्ट्रीय" className="nav-bar-2-link" onClick={toggleMenu}>अंतरराष्ट्रीय</Link></li>
           </ul>
         </nav>
       </div>

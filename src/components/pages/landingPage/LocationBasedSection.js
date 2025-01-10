@@ -1,56 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./LocationBasedSection.css";
 import CardImg from "../../../assets/News1 6.png";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { BsCalendar3 } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import { useNews } from "../../../context/NewsContext";
 
 const LocationBasedSection = () => {
-  const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [activeLocation, setActiveLocation] = useState('');
+  const navigate = useNavigate();
+  const { locationNews, loading, error } = useNews();
+  const [activeLocation, setActiveLocation] = useState('Sagar');
   const [searchQuery, setSearchQuery] = useState('');
-  const [locationsData, setLocationsData] = useState({});
 
-  useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:8080/api/news/by-districts"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch news.");
-        }
-        const data = await response.json();
-        setNews(data || []); 
-      } catch (err) {
-        setError(err.message);
-        setNews([]); 
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/api/news/by-districts');
-        const data = await response.json();
-        setLocationsData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchNews();
-    fetchData();
-  }, []);
+  // Define allowed locations
+  const allowedLocations = ['Sagar', 'Ujjain', 'Gwalior', 'Indore', 'Jabalpur', 'Chambal'];
 
   const handleLocationChange = (location) => {
     setActiveLocation(location);
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredNews = Object.entries(locationNews).reduce((acc, [location, articles]) => {
+    // Only include allowed locations
+    if (!allowedLocations.includes(location)) return acc;
+    
+    // Sort articles by ID in descending order and then filter
+    const sortedArticles = [...articles].sort((a, b) => b.id - a.id);
+    const filteredArticles = sortedArticles.filter(article => 
+      article.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      article.content?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      article.district?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    if (filteredArticles.length > 0) {
+      acc[location] = filteredArticles;
+    }
+    return acc;
+  }, {});
+
   if (loading) return <p>Loading news...</p>;
   if (error) return <p>Error: {error}</p>;
+
+  const displayedLocations = searchQuery 
+    ? Object.keys(filteredNews).filter(location => allowedLocations.includes(location))
+    : allowedLocations.filter(location => locationNews[location]?.length > 0);
 
   return (
     <div className="locationbasedsection-container">
@@ -58,7 +53,7 @@ const LocationBasedSection = () => {
       <div className="gradient-underline"></div>
       <div className="locationbasedsection-NavBar">
         <div className="location-links">
-          {Object.keys(locationsData).map((location) => (
+          {displayedLocations.map((location) => (
             <button
               key={location}
               className={`locationbasedsection-NavBar-link ${activeLocation === location ? 'active' : ''}`}
@@ -70,81 +65,112 @@ const LocationBasedSection = () => {
         </div>
         <input 
           type="text" 
-          placeholder="Search" 
+          placeholder="Search news..." 
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
+          className="search-input"
         />
       </div>
       
       <div className="locationbasedsection-news-container">
         <div className="cards-container">
-          {Object.entries(locationsData).map(([location, articles]) => (
-            location === activeLocation && (
-              articles.slice(0, 6).map((article, index) => (
-                <Card key={index} article={article} index={index} />
+          {searchQuery ? (
+            // Show filtered and sorted news from all locations when searching
+            Object.entries(filteredNews)
+              .flatMap(([location, articles]) => articles)
+              .sort((a, b) => b.id - a.id)  // Sort combined results by ID
+              .slice(0, 4)
+              .map((article, index) => (
+                <Card key={article.id} article={article} index={index} />
               ))
-            )
-          ))}
+          ) : (
+            // Show sorted news from active location when not searching
+            [...(locationNews[activeLocation] || [])]
+              .sort((a, b) => b.id - a.id)
+              .slice(0, 4)
+              .map((article, index) => (
+                <Card key={article.id} article={article} index={index} />
+              ))
+          )}
+        </div>
+        <div className="read-more-container">
+          <button 
+            className="read-more-button"
+            onClick={() => navigate(`/location/${activeLocation.toLowerCase()}`)}
+          >
+            और पढ़ें →
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-const Card = ({ article, index }) => (
-  <div className="card" key={index}>
-    <div className="badge">{article.location || "सागर"}</div>
-    <img
-      src={article.urlToImage || CardImg}
-      alt={article.title}
-      className="card-image"
-    />
-    <div className="card-content">
-      <h2 className="card-title">{article.title}</h2>
-      <p className="card-description">{article.description}</p>
-      <div className="card-footer">
-        <div className="author-info">
-          <span className="author">By {article.author || "Unknown"}</span>
-          <span className="date">
-            <BsCalendar3 className="calendar-icon" />
-            {new Date(article.date || new Date()).toLocaleString('en-IN', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-              timeZone: 'Asia/Kolkata',
-              hour12: false
-            })} IST
-          </span>
+const Card = ({ article, index }) => {
+  const navigate = useNavigate();
+  
+  const handleReadMore = () => {
+    navigate(`/news/${article.id}`, {
+      state: { 
+        article,
+        category: 'location'
+      }
+    });
+  };
+
+  return (
+    <div className="card" key={index}>
+      <div className="badge">{article.district?.name || "सागर"}</div>
+      <img
+        src={article.imageUrl || CardImg}
+        alt={article.title}
+        className="card-image"
+        onError={(e) => {e.target.src = CardImg}}
+      />
+      <div className="card-content">
+        <h2 className="card-title">{article.title}</h2>
+        <p className="card-description">{article.content}</p>
+        <div className="card-footer">
+          <div className="author-info">
+            <span className="author">By {article.author || "Unknown"}</span>
+            <span className="date">
+              <BsCalendar3 className="calendar-icon" />
+              {new Date(article.publishedDate).toLocaleString('en-IN', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Asia/Kolkata',
+                hour12: false
+              })} IST
+            </span>
+          </div>
+        </div>
+        <div className="card-actions">
+          <button onClick={handleReadMore} className="read-more-btn">और भी</button>
+          <IoShareSocialOutline 
+            className="share-icon" 
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({
+                  title: article.title,
+                  text: article.content,
+                  url: window.location.href,
+                })
+                .catch((error) => console.log('Error sharing:', error));
+              } else {
+                const shareUrl = `${window.location.href}?article=${encodeURIComponent(article.title)}`;
+                navigator.clipboard.writeText(shareUrl)
+                  .then(() => alert('Link copied to clipboard!'))
+                  .catch((error) => console.log('Error copying to clipboard:', error));
+              }
+            }}
+          />
         </div>
       </div>
-      <div className="card-actions">
-        <IoShareSocialOutline 
-          className="share-icon" 
-          onClick={() => {
-            if (navigator.share) {
-              navigator.share({
-                title: article.title,
-                text: article.description,
-                url: window.location.href,
-              })
-              .catch((error) => console.log('Error sharing:', error));
-            } else {
-              // Fallback for browsers that don't support Web Share API
-              const shareUrl = `${window.location.href}?article=${encodeURIComponent(article.title)}&location=${encodeURIComponent(article.location)}`;
-              navigator.clipboard.writeText(shareUrl)
-                .then(() => alert('Link copied to clipboard!'))
-                .catch((error) => console.log('Error copying to clipboard:', error));
-            }
-          }}
-        />
-        <a href="#" className="read-more">
-          और भी →
-        </a>
-      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default LocationBasedSection;

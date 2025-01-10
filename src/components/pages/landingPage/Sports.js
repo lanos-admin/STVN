@@ -4,6 +4,7 @@ import { IoShareSocialOutline } from "react-icons/io5";
 import { BsCalendar3 } from "react-icons/bs";
 import "./Sports.css";
 import { useNavigate } from "react-router-dom";
+import { endpoints } from "../../../config/config";
 
 const Sports = () => {
     const navigate = useNavigate();
@@ -14,17 +15,15 @@ const Sports = () => {
     useEffect(() => {
       const fetchNews = async () => {
         try {
-          const response = await fetch(
-            "https://news-backend-production-ae21.up.railway.app/api/news"
-          );
+          const response = await fetch(endpoints.news.byCategory(1));
           if (!response.ok) {
-            throw new Error("Failed to fetch news.");
+            throw new Error("Failed to fetch Sports news.");
           }
           const data = await response.json();
-          setNews(data || []); // Set the entire data array or empty array if null
+          setNews(data || []); 
         } catch (err) {
           setError(err.message);
-          setNews([]); // Set empty array on error
+          setNews([]);
         } finally {
           setLoading(false);
         }
@@ -44,24 +43,33 @@ const Sports = () => {
               
     <div className="SportsContainer">
       {news.slice(0,4).map((article, index) => (
-        <div className="SportsCard" key={index}>
-          <div className="SportsBadge">{article.location || "सागर"}</div>
+        <div className="SportsCard" key={article.id}>
+          <div className="SportsBadge">{article.district?.name || "सागर"}</div>
           <img
-            src={CardImg2} 
-            alt="Shivraj"
+            src={article.imageUrl || CardImg2} 
+            alt={article.title}
             className="SportsCardImage"
+            onError={(e) => {e.target.src = CardImg2}}
           />
           <div className="SportsCardContent">
-            <h2 className="SportsCardTitle">{article.heading}</h2>
+            <h2 className="SportsCardTitle">{article.title}</h2>
             <p className="SportsCardDescription">
-             {article.mainNews}
+             {article.content}
             </p>
             <div className="SportsCardFooter">
               <div className="SportsAuthorInfo">
-                <span className="SportsAuthor">By Abhishek Sharma</span>
+                <span className="SportsAuthor">By {article.author || "Unknown"}</span>
                 <span className="SportsDate">
                   <BsCalendar3 className="SportsCalendarIcon" />
-                  Nov 25, 2024 21:27 IST
+                  {new Date(article.publishedDate).toLocaleString('en-IN', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: 'Asia/Kolkata',
+                    hour12: false
+                  })} IST
                 </span>
               </div>
             </div>
@@ -71,13 +79,13 @@ const Sports = () => {
                 onClick={() => {
                   if (navigator.share) {
                     navigator.share({
-                      title: article.heading,
-                      text: article.mainNews,
+                      title: article.title,
+                      text: article.content,
                       url: window.location.href,
                     })
                     .catch((error) => console.log('Error sharing:', error));
                   } else {
-                    const shareUrl = `${window.location.href}?article=${encodeURIComponent(article.heading)}&category=sports`;
+                    const shareUrl = `${window.location.href}?article=${encodeURIComponent(article.title)}`;
                     navigator.clipboard.writeText(shareUrl)
                       .then(() => alert('Link copied to clipboard!'))
                       .catch((error) => console.log('Error copying to clipboard:', error));
@@ -89,7 +97,7 @@ const Sports = () => {
                 className="SportsReadMore"
                 onClick={(e) => {
                   e.preventDefault();
-                  navigate(`/news-detail/${article._id}`, { 
+                  navigate(`/${article.id}`, { 
                     state: { 
                       article: article,
                       category: 'sports'

@@ -57,13 +57,6 @@
     color: #888;
 }
   
-.CrimeReadMore {
-    text-decoration: none;
-    color: #d32f2f;
-    font-weight: bold;
-    font-size: 14px;
-}
-
 .CrimeCardActions {
     display: flex;
     align-items: center;
@@ -81,6 +74,17 @@
 
 .CrimeShareIcon:hover {
     color: #333;
+}
+
+.CrimeReadMore {
+    text-decoration: none;
+    color: #d32f2f;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.CrimeReadMore:hover {
+    color: #b71c1c;
 }
 
 .CrimeAuthorInfo {

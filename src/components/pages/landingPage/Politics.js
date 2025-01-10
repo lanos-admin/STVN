@@ -2,8 +2,9 @@ import React, {useState, useEffect} from "react";
 import CardImg2 from "../../../assets/News1 17.png";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { BsCalendar3 } from "react-icons/bs";
-import "./Politics.css";
+import "./NewsSection.css";
 import { useNavigate } from "react-router-dom";
+import { endpoints } from "../../../config/config";
 
 const Politics = () => {
     const navigate = useNavigate();
@@ -14,17 +15,15 @@ const Politics = () => {
     useEffect(() => {
       const fetchNews = async () => {
         try {
-          const response = await fetch(
-            "https://news-backend-production-ae21.up.railway.app/api/news"
-          );
+          const response = await fetch(endpoints.news.byCategory(3));
           if (!response.ok) {
-            throw new Error("Failed to fetch news.");
+            throw new Error("Failed to fetch Politics news.");
           }
           const data = await response.json();
-          setNews(data || []); // Set the entire data array or empty array if null
+          setNews(data || []); 
         } catch (err) {
           setError(err.message);
-          setNews([]); // Set empty array on error
+          setNews([]);
         } finally {
           setLoading(false);
         }
@@ -36,75 +35,85 @@ const Politics = () => {
     if (loading) return <p>Loading news...</p>;
     if (error) return <p>Error: {error}</p>;
     if (!news || news.length === 0) return <p>No news articles available.</p>;
+
   return (
-    <div className="Politics">
-<div className="Politics-title-section">
-              <h2 className="PoliticsSection-title">Politics</h2>
-              <div className="gradient-underline"></div>
+    <div className="News-section">
+      <div className="News-title-section">
+        <h2 className="NewsSection-title">Politics</h2>
+        <div className="gradient-underline"></div>
               
-    <div className="PoliticsContainer">
-      {news.slice(0,4).map((article, index) => (
-        <div className="PoliticsCard" key={index}>
-          <div className="PoliticsBadge">{article.location || "सागर"}</div>
-          <img
-            src={CardImg2} 
-            alt="Shivraj"
-            className="PoliticsCardImage"
-          />
-          <div className="PoliticsCardContent">
-            <h2 className="PoliticsCardTitle">{article.heading}</h2>
-            <p className="PoliticsCardDescription">
-             {article.mainNews}
-            </p>
-            <div className="PoliticsCardFooter">
-              <div className="PoliticsAuthorInfo">
-                <span className="PoliticsAuthor">By Abhishek Sharma</span>
-                <span className="PoliticsDate">
-                  <BsCalendar3 className="PoliticsCalendarIcon" />
-                  Nov 25, 2024 21:27 IST
-                </span>
+        <div className="NewsContainer">
+          {news.slice(0,4).map((article, index) => (
+            <div className="NewsCard" key={index}>
+              <div className="NewsBadge">{article.district?.name || "सागर"}</div>
+              <img
+                src={article.imageUrl || CardImg2}
+                alt={article.title}
+                className="NewsCardImage"
+                onError={(e) => {e.target.src = CardImg2}}
+              />
+              <div className="NewsCardContent">
+                <h2 className="NewsCardTitle">{article.title}</h2>
+                <p className="NewsCardDescription">
+                  {article.content}
+                </p>
+                <div className="NewsCardFooter">
+                  <div className="NewsAuthorInfo">
+                    <span className="NewsAuthor">By {article.author || "Unknown"}</span>
+                    <span className="NewsDate">
+                      <BsCalendar3 className="NewsCalendarIcon" />
+                      {new Date(article.publishedDate).toLocaleString('en-IN', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        timeZone: 'Asia/Kolkata',
+                        hour12: false
+                      })} IST
+                    </span>
+                  </div>
+                </div>
+                <div className="NewsCardActions">
+                  <IoShareSocialOutline 
+                    className="NewsShareIcon" 
+                    onClick={() => {
+                      if (navigator.share) {
+                        navigator.share({
+                          title: article.title,
+                          text: article.content,
+                          url: window.location.href,
+                        })
+                        .catch((error) => console.log('Error sharing:', error));
+                      } else {
+                        const shareUrl = `${window.location.href}?article=${encodeURIComponent(article.title)}`;
+                        navigator.clipboard.writeText(shareUrl)
+                          .then(() => alert('Link copied to clipboard!'))
+                          .catch((error) => console.log('Error copying to clipboard:', error));
+                      }
+                    }}
+                  />
+                  <a 
+                    href="#" 
+                    className="NewsReadMore"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(`/news/${article.id}`, { 
+                        state: { 
+                          article: article,
+                          category: 'Politics'
+                        }
+                      });
+                    }}
+                  >
+                    और भी →
+                  </a>
+                </div>
               </div>
             </div>
-            <div className="PoliticsCardActions">
-              <IoShareSocialOutline 
-                className="PoliticsShareIcon" 
-                onClick={() => {
-                  if (navigator.share) {
-                    navigator.share({
-                      title: article.heading,
-                      text: article.mainNews,
-                      url: window.location.href,
-                    })
-                    .catch((error) => console.log('Error sharing:', error));
-                  } else {
-                    const shareUrl = `${window.location.href}?article=${encodeURIComponent(article.heading)}&category=politics`;
-                    navigator.clipboard.writeText(shareUrl)
-                      .then(() => alert('Link copied to clipboard!'))
-                      .catch((error) => console.log('Error copying to clipboard:', error));
-                  }
-                }}
-              />
-              <a 
-                href="#" 
-                className="PoliticsReadMore"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate(`/news-detail/${article._id}`, { 
-                    state: { 
-                      article: article,
-                      category: 'politics'
-                    }
-                  });
-                }}
-              >
-                और भी →
-              </a>
-            </div>
-          </div>
+          ))}
         </div>
-      ))}
-    </div>
-    </div>
+      </div>
     </div>
   );
 };

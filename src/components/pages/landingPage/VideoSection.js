@@ -1,85 +1,119 @@
-import React from 'react';
-import './VisualShortsSection.css';
+import React, { useState, useEffect } from 'react';
+import './VideoSection.css';
 import { BsPlayCircle } from 'react-icons/bs';
+import { IoShareSocialOutline } from 'react-icons/io5';
 import CardImg from "../../../assets/News1 6.png";
+import { fetchNews } from '../../../config/config';
+import { useNavigate } from 'react-router-dom';
 
-const visualShortsData = [
-  {
-    id: 1,
-    title: "सागर में विकास कार्यों की समीक्षा बैठक",
-    duration: "2:30",
-    views: "1.2K",
-    thumbnail: CardImg,
-    date: "2 घंटे पहले"
-  },
-  {
-    id: 2,
-    title: "मध्य प्रदेश में नई शिक्षा नीति का क्रियान्वयन",
-    duration: "1:45",
-    views: "890",
-    thumbnail: CardImg,
-    date: "3 घंटे पहले"
-  },
-  {
-    id: 3,
-    title: "सागर में स्वच्छता अभियान की शुरुआत",
-    duration: "3:15",
-    views: "2.1K",
-    thumbnail: CardImg,
-    date: "5 घंटे पहले"
-  },
-  {
-    id: 4,
-    title: "किसानों के लिए नई योजना का शुभारंभ",
-    duration: "2:00",
-    views: "1.5K",
-    thumbnail: CardImg,
-    date: "6 घंटे पहले"
-  },
-  {
-    id: 5,
-    title: "सागर में नए मेडिकल कॉलेज का निर्माण",
-    duration: "4:20",
-    views: "3.2K",
-    thumbnail: CardImg,
-    date: "8 घंटे पहले"
-  },
-  {
-    id: 6,
-    title: "युवाओं के लिए रोजगार मेला आयोजित",
-    duration: "2:45",
-    views: "950",
-    thumbnail: CardImg,
-    date: "10 घंटे पहले"
-  }
-];
+const VideoSection = () => {
+  const navigate = useNavigate();
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [playingVideoId, setPlayingVideoId] = useState(null);
 
-const VisualShortsSection = () => {
+  useEffect(() => {
+    const loadVideos = async () => {
+      try {
+        setLoading(true);
+        const newsData = await fetchNews();
+        // Filter news items that have video URLs and are of type VIDEO
+        const videoNews = newsData.filter(news => news.videoUrl && news.type === 'VIDEO');
+        setVideos(videoNews);
+      } catch (err) {
+        console.error('Error loading videos:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadVideos();
+  }, []);
+
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
+    
+    if (diffInHours < 1) return 'Just now';
+    if (diffInHours < 24) return `${diffInHours} घंटे पहले`;
+    if (diffInHours < 48) return 'कल';
+    return `${Math.floor(diffInHours / 24)} दिन पहले`;
+  };
+
+  const handleShare = (e, video) => {
+    e.stopPropagation();
+    if (navigator.share) {
+      navigator.share({
+        title: video.title,
+        text: video.content,
+        url: window.location.href
+      }).catch((error) => console.log('Error sharing:', error));
+    } else {
+      const shareUrl = window.location.href;
+      navigator.clipboard.writeText(shareUrl)
+        .then(() => alert('Link copied to clipboard!'))
+        .catch((err) => console.error('Failed to copy:', err));
+    }
+  };
+
+  if (loading) return <div className="video-section">Loading videos...</div>;
+  if (error) return <div className="video-section">Error: {error}</div>;
+  if (!videos || videos.length === 0) return <div className="video-section">No videos available</div>;
+
+  // Get only the first 3 videos
+  const displayVideos = videos.slice(0, 3);
+
   return (
-    <div className="visual-shorts-section">
-              <h2 className='visual-shorts-title'>Viral Videos</h2>
-              <div className="gradient-underline"></div>
-      <div className="section-header">
-
+    <div className="video-section">
+      <div className="video-section-title-container">
+        <h2 className="video-section-title">Viral Videos</h2>
+        <div className="gradient-underline"></div>
       </div>
-      <div className="shorts-container">
-        {visualShortsData.slice(0, 4).map((short, index) => (
-          <div 
-            key={short.id} 
-            className="short-card"
-          >
-            <div className="thumbnail-container">
-              <img src={short.thumbnail} alt={short.title} />
-              <div className="overlay">
-                <BsPlayCircle className="play-icon" />
-                <span className="duration">{short.duration}</span>
+      <div className="video-grid">
+        {displayVideos.map((video) => (
+          <div key={video.id} className="video-card">
+            {playingVideoId === video.id ? (
+              <div className="video-player-container">
+                <video
+                  className="video-player"
+                  controls
+                  autoPlay
+                  src={video.videoUrl}
+                  onEnded={() => setPlayingVideoId(null)}
+                >
+                  Your browser does not support the video tag.
+                </video>
               </div>
-            </div>
-            <div className="short-info">
-              <h3>{short.title}</h3>
-              <div className="meta-info">
-                <span className="views">{short.views} views</span>
-                <span className="date">{short.date}</span>
+            ) : (
+              <div 
+                className="video-thumbnail-container"
+                onClick={() => setPlayingVideoId(video.id)}
+              >
+                <img
+                  src={video.imageUrl || CardImg}
+                  alt={video.title}
+                  className="video-thumbnail"
+                  onError={(e) => {e.target.src = CardImg}}
+                />
+                <BsPlayCircle className="play-icon" />
+              </div>
+            )}
+            <div className="video-info">
+              <h3 className="video-title">{video.title}</h3>
+              <div className="video-metadata">
+                <span>{formatDate(video.publishedDate)}</span>
+                <span className="district-badge">{video.district?.name || "सागर"}</span>
+                <button 
+                  className="share-button"
+                  onClick={(e) => handleShare(e, video)}
+                  aria-label="Share"
+                >
+                  <IoShareSocialOutline size={14} />
+                </button>
               </div>
             </div>
           </div>
@@ -89,4 +123,4 @@ const VisualShortsSection = () => {
   );
 };
 
-export default VisualShortsSection;
+export default VideoSection;
