@@ -2,11 +2,11 @@ import React, {useState, useEffect} from "react";
 import CardImg2 from "../../../assets/News1 17.png";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { BsCalendar3 } from "react-icons/bs";
-import "./Entertainment.css";
+import "./NewsSection.css";
 import { useNavigate } from "react-router-dom";
 import { endpoints } from "../../../config/config";
 
-const Entertainment = () => {
+const News = () => {
     const navigate = useNavigate();
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const Entertainment = () => {
         try {
           const response = await fetch(endpoints.news.byCategory(10));
           if (!response.ok) {
-            throw new Error("Failed to fetch Entertainment news.");
+            throw new Error("Failed to fetch News news.");
           }
           const data = await response.json();
           setNews(data || []); 
@@ -37,31 +37,31 @@ const Entertainment = () => {
     if (!news || news.length === 0) return <p>No news articles available.</p>;
 
   return (
-    <div className="Entertainment">
-      <div className="Entertainment-title-section">
-        <h2 className="EntertainmentSection-title">Entertainment</h2>
+    <div className="News">
+      <div className="News-title-section">
+        <h2 className="NewsSection-title">Entertainment</h2>
         <div className="gradient-underline"></div>
               
-        <div className="EntertainmentContainer">
+        <div className="NewsContainer">
           {news.slice(0,4).map((article, index) => (
-            <div className="EntertainmentCard" key={index}>
-              <div className="EntertainmentBadge">{article.district?.name || "सागर"}</div>
+            <div className="NewsCard" key={index}>
+              <div className="NewsBadge">{article.district?.name || "सागर"}</div>
               <img
                 src={article.imageUrl || CardImg2}
                 alt={article.title}
-                className="EntertainmentCardImage"
+                className="NewsCardImage"
                 onError={(e) => {e.target.src = CardImg2}}
               />
-              <div className="EntertainmentCardContent">
-                <h2 className="EntertainmentCardTitle">{article.title}</h2>
-                <p className="EntertainmentCardDescription">
+              <div className="NewsCardContent">
+                <h2 className="NewsCardTitle">{article.title}</h2>
+                <p className="NewsCardDescription">
                   {article.content}
                 </p>
-                <div className="EntertainmentCardFooter">
-                  <div className="EntertainmentAuthorInfo">
-                    <span className="EntertainmentAuthor">By {article.author || "Unknown"}</span>
-                    <span className="EntertainmentDate">
-                      <BsCalendar3 className="EntertainmentCalendarIcon" />
+                <div className="NewsCardFooter">
+                  <div className="NewsAuthorInfo">
+                    <span className="NewsAuthor">By {article.author || "Unknown"}</span>
+                    <span className="NewsDate">
+                      <BsCalendar3 className="NewsCalendarIcon" />
                       {new Date(article.publishedDate).toLocaleString('en-IN', {
                         day: 'numeric',
                         month: 'short',
@@ -74,9 +74,9 @@ const Entertainment = () => {
                     </span>
                   </div>
                 </div>
-                <div className="EntertainmentCardActions">
+                <div className="NewsCardActions">
                   <IoShareSocialOutline 
-                    className="EntertainmentShareIcon" 
+                    className="NewsShareIcon" 
                     onClick={() => {
                       if (navigator.share) {
                         navigator.share({
@@ -95,7 +95,7 @@ const Entertainment = () => {
                   />
                   <a 
                     href="#" 
-                    className="EntertainmentReadMore"
+                    className="NewsReadMore"
                     onClick={(e) => {
                       e.preventDefault();
                       navigate(`/news/${article.id}`, { 
@@ -113,9 +113,17 @@ const Entertainment = () => {
             </div>
           ))}
         </div>
+        <div className="read-more-container">
+          <button 
+            className="read-more-button"
+            onClick={() => navigate('/मनोरंजन')}
+          >
+            और पढ़ें →
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Entertainment;
+export default News;

@@ -135,3 +135,51 @@
     align-items: center;
     justify-content: center;
 }
+
+@media screen and (max-width: 1200px) {
+    .EntertainmentContainer {
+        padding: 15px;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .EntertainmentCard {
+        width: calc(50% - 15px);
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .EntertainmentContainer {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .EntertainmentCard {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .EntertainmentCardTitle {
+        font-size: 16px;
+    }
+
+    .EntertainmentCardDescription {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .EntertainmentContainer {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .EntertainmentCardTitle {
+        font-size: 15px;
+    }
+
+    .EntertainmentCardDescription {
+        font-size: 12px;
+    }
+}

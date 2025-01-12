@@ -93,6 +93,16 @@
   position: relative;
 }
 
+.video-location {
+  display: inline-block;
+  background-color: #D01F1F;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
 .video-title {
   font-size: 16px;
   font-weight: 600;

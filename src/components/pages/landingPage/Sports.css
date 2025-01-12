@@ -135,3 +135,51 @@
     align-items: center;
     justify-content: center;
 }
+
+@media screen and (max-width: 1200px) {
+    .SportsContainer {
+        padding: 15px;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .SportsCard {
+        width: calc(50% - 15px);
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .SportsContainer {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .SportsCard {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .SportsCardTitle {
+        font-size: 16px;
+    }
+
+    .SportsCardDescription {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .SportsContainer {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .SportsCardTitle {
+        font-size: 15px;
+    }
+
+    .SportsCardDescription {
+        font-size: 12px;
+    }
+}

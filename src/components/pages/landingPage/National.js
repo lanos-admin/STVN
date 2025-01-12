@@ -2,11 +2,11 @@ import React, {useState, useEffect} from "react";
 import CardImg2 from "../../../assets/News1 17.png";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { BsCalendar3 } from "react-icons/bs";
-import "./National.css";
+import "./NewsSection.css";
 import { useNavigate } from "react-router-dom";
 import { endpoints } from "../../../config/config";
 
-const National = () => {
+const News = () => {
     const navigate = useNavigate();
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const National = () => {
         try {
           const response = await fetch(endpoints.news.byCategory(4));
           if (!response.ok) {
-            throw new Error("Failed to fetch National news.");
+            throw new Error("Failed to fetch News news.");
           }
           const data = await response.json();
           setNews(data || []); 
@@ -37,31 +37,31 @@ const National = () => {
     if (!news || news.length === 0) return <p>No news articles available.</p>;
 
   return (
-    <div className="National">
-      <div className="National-title-section">
-        <h2 className="NationalSection-title">National</h2>
+    <div className="News">
+      <div className="News-title-section">
+        <h2 className="NewsSection-title">National</h2>
         <div className="gradient-underline"></div>
               
-        <div className="NationalContainer">
+        <div className="NewsContainer">
           {news.slice(0,4).map((article, index) => (
-            <div className="NationalCard" key={index}>
-              <div className="NationalBadge">{article.district?.name || "सागर"}</div>
+            <div className="NewsCard" key={index}>
+              <div className="NewsBadge">{article.district?.name || "सागर"}</div>
               <img
                 src={article.imageUrl || CardImg2}
                 alt={article.title}
-                className="NationalCardImage"
+                className="NewsCardImage"
                 onError={(e) => {e.target.src = CardImg2}}
               />
-              <div className="NationalCardContent">
-                <h2 className="NationalCardTitle">{article.title}</h2>
-                <p className="NationalCardDescription">
+              <div className="NewsCardContent">
+                <h2 className="NewsCardTitle">{article.title}</h2>
+                <p className="NewsCardDescription">
                   {article.content}
                 </p>
-                <div className="NationalCardFooter">
-                  <div className="NationalAuthorInfo">
-                    <span className="NationalAuthor">By {article.author || "Unknown"}</span>
-                    <span className="NationalDate">
-                      <BsCalendar3 className="NationalCalendarIcon" />
+                <div className="NewsCardFooter">
+                  <div className="NewsAuthorInfo">
+                    <span className="NewsAuthor">By {article.author || "Unknown"}</span>
+                    <span className="NewsDate">
+                      <BsCalendar3 className="NewsCalendarIcon" />
                       {new Date(article.publishedDate).toLocaleString('en-IN', {
                         day: 'numeric',
                         month: 'short',
@@ -74,9 +74,9 @@ const National = () => {
                     </span>
                   </div>
                 </div>
-                <div className="NationalCardActions">
+                <div className="NewsCardActions">
                   <IoShareSocialOutline 
-                    className="NationalShareIcon" 
+                    className="NewsShareIcon" 
                     onClick={() => {
                       if (navigator.share) {
                         navigator.share({
@@ -95,7 +95,7 @@ const National = () => {
                   />
                   <a 
                     href="#" 
-                    className="NationalReadMore"
+                    className="NewsReadMore"
                     onClick={(e) => {
                       e.preventDefault();
                       navigate(`/news/${article.id}`, { 
@@ -113,9 +113,17 @@ const National = () => {
             </div>
           ))}
         </div>
+        <div className="read-more-container">
+          <button 
+            className="read-more-button"
+            onClick={() => navigate('/राष्ट्रीय')}
+          >
+            और पढ़ें →
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default National;
+export default News;

@@ -2,11 +2,11 @@ import React, {useState, useEffect} from "react";
 import CardImg2 from "../../../assets/News1 17.png";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { BsCalendar3 } from "react-icons/bs";
-import "./Sports.css";
+import "./NewsSection.css";
 import { useNavigate } from "react-router-dom";
 import { endpoints } from "../../../config/config";
 
-const Sports = () => {
+const News = () => {
     const navigate = useNavigate();
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const Sports = () => {
         try {
           const response = await fetch(endpoints.news.byCategory(1));
           if (!response.ok) {
-            throw new Error("Failed to fetch Sports news.");
+            throw new Error("Failed to fetch News news.");
           }
           const data = await response.json();
           setNews(data || []); 
@@ -36,31 +36,31 @@ const Sports = () => {
     if (error) return <p>Error: {error}</p>;
     if (!news || news.length === 0) return <p>No news articles available.</p>;
   return (
-    <div className="Sports">
-<div className="Sports-title-section">
-              <h2 className="SportsSection-title">Sports</h2>
+    <div className="News">
+<div className="News-title-section">
+              <h2 className="NewsSection-title">Sports</h2>
               <div className="gradient-underline"></div>
               
-    <div className="SportsContainer">
+    <div className="NewsContainer">
       {news.slice(0,4).map((article, index) => (
-        <div className="SportsCard" key={article.id}>
-          <div className="SportsBadge">{article.district?.name || "सागर"}</div>
+        <div className="NewsCard" key={article.id}>
+          <div className="NewsBadge">{article.district?.name || "सागर"}</div>
           <img
             src={article.imageUrl || CardImg2} 
             alt={article.title}
-            className="SportsCardImage"
+            className="NewsCardImage"
             onError={(e) => {e.target.src = CardImg2}}
           />
-          <div className="SportsCardContent">
-            <h2 className="SportsCardTitle">{article.title}</h2>
-            <p className="SportsCardDescription">
+          <div className="NewsCardContent">
+            <h2 className="NewsCardTitle">{article.title}</h2>
+            <p className="NewsCardDescription">
              {article.content}
             </p>
-            <div className="SportsCardFooter">
-              <div className="SportsAuthorInfo">
-                <span className="SportsAuthor">By {article.author || "Unknown"}</span>
-                <span className="SportsDate">
-                  <BsCalendar3 className="SportsCalendarIcon" />
+            <div className="NewsCardFooter">
+              <div className="NewsAuthorInfo">
+                <span className="NewsAuthor">By {article.author || "Unknown"}</span>
+                <span className="NewsDate">
+                  <BsCalendar3 className="NewsCalendarIcon" />
                   {new Date(article.publishedDate).toLocaleString('en-IN', {
                     day: 'numeric',
                     month: 'short',
@@ -73,9 +73,9 @@ const Sports = () => {
                 </span>
               </div>
             </div>
-            <div className="SportsCardActions">
+            <div className="NewsCardActions">
               <IoShareSocialOutline 
-                className="SportsShareIcon" 
+                className="NewsShareIcon" 
                 onClick={() => {
                   if (navigator.share) {
                     navigator.share({
@@ -94,13 +94,13 @@ const Sports = () => {
               />
               <a 
                 href="#" 
-                className="SportsReadMore"
+                className="NewsReadMore"
                 onClick={(e) => {
                   e.preventDefault();
                   navigate(`/${article.id}`, { 
                     state: { 
                       article: article,
-                      category: 'sports'
+                      category: 'News'
                     }
                   });
                 }}
@@ -112,9 +112,17 @@ const Sports = () => {
         </div>
       ))}
     </div>
+    <div className="read-more-container">
+      <button 
+        className="read-more-button"
+        onClick={() => navigate('/खेल')}
+      >
+        और पढ़ें →
+      </button>
     </div>
-    </div>
+  </div>
+</div>
   );
 };
 
-export default Sports;
+export default News;

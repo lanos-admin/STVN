@@ -2,11 +2,11 @@ import React, {useState, useEffect} from "react";
 import CardImg2 from "../../../assets/News1 17.png";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { BsCalendar3 } from "react-icons/bs";
-import "./Crime.css";
+import "./NewsSection.css";
 import { useNavigate } from "react-router-dom";
 import { endpoints } from "../../../config/config";
 
-const Crime = () => {
+const News = () => {
     const navigate = useNavigate();
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const Crime = () => {
         try {
           const response = await fetch(endpoints.news.byCategory(2));
           if (!response.ok) {
-            throw new Error("Failed to fetch Crime news.");
+            throw new Error("Failed to fetch News news.");
           }
           const data = await response.json();
           setNews(data || []); 
@@ -37,31 +37,31 @@ const Crime = () => {
     if (!news || news.length === 0) return <p>No news articles available.</p>;
 
   return (
-    <div className="Crime">
-      <div className="Crime-title-section">
-        <h2 className="CrimeSection-title">Crime</h2>
+    <div className="News">
+      <div className="News-title-section">
+        <h2 className="NewsSection-title">Crime</h2>
         <div className="gradient-underline"></div>
               
-        <div className="CrimeContainer">
+        <div className="NewsContainer">
           {news.slice(0,4).map((article, index) => (
-            <div className="CrimeCard" key={index}>
-              <div className="CrimeBadge">{article.district?.name || "सागर"}</div>
+            <div className="NewsCard" key={index}>
+              <div className="NewsBadge">{article.district?.name || "सागर"}</div>
               <img
                 src={article.imageUrl || CardImg2}
                 alt={article.title}
-                className="CrimeCardImage"
+                className="NewsCardImage"
                 onError={(e) => {e.target.src = CardImg2}}
               />
-              <div className="CrimeCardContent">
-                <h2 className="CrimeCardTitle">{article.title}</h2>
-                <p className="CrimeCardDescription">
+              <div className="NewsCardContent">
+                <h2 className="NewsCardTitle">{article.title}</h2>
+                <p className="NewsCardDescription">
                   {article.content}
                 </p>
-                <div className="CrimeCardFooter">
-                  <div className="CrimeAuthorInfo">
-                    <span className="CrimeAuthor">By {article.author || "Unknown"}</span>
-                    <span className="CrimeDate">
-                      <BsCalendar3 className="CrimeCalendarIcon" />
+                <div className="NewsCardFooter">
+                  <div className="NewsAuthorInfo">
+                    <span className="NewsAuthor">By {article.author || "Unknown"}</span>
+                    <span className="NewsDate">
+                      <BsCalendar3 className="NewsCalendarIcon" />
                       {new Date(article.publishedDate).toLocaleString('en-IN', {
                         day: 'numeric',
                         month: 'short',
@@ -74,9 +74,9 @@ const Crime = () => {
                     </span>
                   </div>
                 </div>
-                <div className="CrimeCardActions">
+                <div className="NewsCardActions">
                   <IoShareSocialOutline 
-                    className="CrimeShareIcon" 
+                    className="NewsShareIcon" 
                     onClick={() => {
                       if (navigator.share) {
                         navigator.share({
@@ -95,7 +95,7 @@ const Crime = () => {
                   />
                   <a 
                     href="#" 
-                    className="CrimeReadMore"
+                    className="NewsReadMore"
                     onClick={(e) => {
                       e.preventDefault();
                       navigate(`/news/${article.id}`, { 
@@ -113,9 +113,17 @@ const Crime = () => {
             </div>
           ))}
         </div>
+        <div className="read-more-container">
+          <button 
+            className="read-more-button"
+            onClick={() => navigate('/अपराध')}
+          >
+            और पढ़ें →
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Crime;
+export default News;

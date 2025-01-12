@@ -135,3 +135,51 @@
     align-items: center;
     justify-content: center;
 }
+
+@media screen and (max-width: 1200px) {
+    .InternationalContainer {
+        padding: 15px;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .InternationalCard {
+        width: calc(50% - 15px);
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .InternationalContainer {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .InternationalCard {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .InternationalCardTitle {
+        font-size: 16px;
+    }
+
+    .InternationalCardDescription {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .InternationalContainer {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .InternationalCardTitle {
+        font-size: 15px;
+    }
+
+    .InternationalCardDescription {
+        font-size: 12px;
+    }
+}

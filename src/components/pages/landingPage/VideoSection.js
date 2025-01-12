@@ -99,14 +99,16 @@ const VideoSection = () => {
                   className="video-thumbnail"
                   onError={(e) => {e.target.src = CardImg}}
                 />
-                <BsPlayCircle className="play-icon" />
+                <div className="play-icon">
+                  <BsPlayCircle />
+                </div>
               </div>
             )}
             <div className="video-info">
+              <div className="video-location">{video.district?.name || "सागर"}</div>
               <h3 className="video-title">{video.title}</h3>
               <div className="video-metadata">
-                <span>{formatDate(video.publishedDate)}</span>
-                <span className="district-badge">{video.district?.name || "सागर"}</span>
+                <span className="video-time">{formatDate(video.createdAt)}</span>
                 <button 
                   className="share-button"
                   onClick={(e) => handleShare(e, video)}

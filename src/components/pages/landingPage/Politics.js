@@ -113,6 +113,14 @@ const Politics = () => {
             </div>
           ))}
         </div>
+        <div className="read-more-container">
+          <button 
+            className="read-more-button"
+            onClick={() => navigate('/राजनीति')}
+          >
+            और पढ़ें →
+          </button>
+        </div>
       </div>
     </div>
   );
